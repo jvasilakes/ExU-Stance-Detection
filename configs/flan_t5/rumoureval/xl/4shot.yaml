@@ -1,0 +1,43 @@
+Experiment:
+  name: rumoureval
+  random_seed: 0
+  logdir: /data3/gate/users/ac1jv/Exu-Stance-Detection/logs/
+  version: 0
+  # Automatically generated
+  output_dir: /data3/gate/users/ac1jv/Exu-Stance-Detection/logs/rumoureval/flan-t5-xl/version_0/seed_0
+Data:
+  dataset_name: rumoureval
+  datadir: /data3/gate/users/yue/ExU/fine-tune/datasets/rumoureval/
+  num_examples: -1
+  fewshot_examples: 4
+Model:
+  name: lorallm
+  model_path: google/flan-t5-xl
+  # If True, will try to load from {output_dir}/checkpoint
+  load_finetuned_checkpoint: false
+  load_in_kbit: false
+  # The percentage of model layers to freeze, sequentially starting from layer 0
+  layer_freeze_percentage: 0.0
+  # The pattern of model layers to freeze. Following the pattern:
+  # (\([0-9]+\))?(<|>)(-*)
+  # An optional layer number in parentheses indicating the first to freeze.
+  # '>' or '<', indicating freezing forwards or backwards through layers, respectively.
+  # 0 or more '-' indicating the number of layers to skip each time.
+  # E.g., (2)>- means freeze every other layer in a forward direction starting at layer 2.
+  layer_freeze_pattern: '>'
+  Lora:
+    use_lora: false
+    rank: 8
+    alpha: 32
+Training:
+  lr: 0.0001
+  batch_size: 2
+  gradient_accumulation_steps: 2
+  epochs: 10
+  eval_every: 1
+  warmup_steps: 0
+  early_stopping: true
+Git:
+  branch: master
+  commit: 325613e
+  url: https://github.com/jvasilakes/ExU-Stance-Detection.git
